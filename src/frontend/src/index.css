@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Chess Hub Color Palette - Light page, dark header */
+    /* Page bg: #EEF2F6 -> oklch(0.934 0.011 241) */
+    --background: 0.934 0.011 241;
+    /* Primary text: #111827 -> oklch(0.175 0.012 258) */
+    --foreground: 0.175 0.012 258;
+    /* Card bg: white -> oklch(1 0 0) */
+    --card: 1 0 0;
+    --card-foreground: 0.175 0.012 258;
+    --popover: 1 0 0;
+    --popover-foreground: 0.175 0.012 258;
+    /* Primary dark/navy: #162434 -> oklch(0.225 0.035 243) */
+    --primary: 0.225 0.035 243;
+    --primary-foreground: 0.985 0 0;
+    /* Secondary: light gray #E5E7EB -> oklch(0.921 0.005 258) */
+    --secondary: 0.921 0.005 258;
+    --secondary-foreground: 0.175 0.012 258;
+    /* Muted: #6B7786 -> oklch(0.556 0.018 249) */
+    --muted: 0.955 0.008 247;
+    --muted-foreground: 0.556 0.018 249;
+    /* Accent gold: #D1A73A -> oklch(0.745 0.128 79) */
+    --accent: 0.745 0.128 79;
+    --accent-foreground: 0.175 0.012 258;
+    /* Destructive red */
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    /* Border: #E2E7EE -> oklch(0.921 0.011 248) */
+    --border: 0.921 0.011 248;
+    --input: 0.921 0.011 248;
+    --ring: 0.556 0.018 249;
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.985 0 0;
+    --sidebar-foreground: 0.145 0 0;
+    --sidebar-primary: 0.205 0 0;
+    --sidebar-primary-foreground: 0.985 0 0;
+    --sidebar-accent: 0.97 0 0;
+    --sidebar-accent-foreground: 0.205 0 0;
+    --sidebar-border: 0.922 0 0;
+    --sidebar-ring: 0.708 0 0;
+
+    /* Chess Hub Custom Tokens */
+    --navy-dark: 0.185 0.038 243;
+    --navy-mid: 0.225 0.035 243;
+    --navy-light: 0.265 0.032 243;
+    --gold: 0.745 0.128 79;
+    --board-light: 0.905 0.035 91;
+    --board-dark: 0.38 0.055 157;
+    --board-highlight: 0.62 0.14 245;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "General Sans", "Plus Jakarta Sans", system-ui, -apple-system,
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(var(--muted-foreground) / 0.5);
+  }
+}
+
+/* Chess piece animations */
+@keyframes piecePlace {
+  0% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes squarePulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes clockPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.piece-placed {
+  animation: piecePlace 0.15s ease-out;
+}
+
+.clock-active {
+  animation: clockPulse 1s ease-in-out infinite;
+}
+
+/* Chess board squares */
+.chess-square-light {
+  background-color: oklch(var(--board-light));
+}
+
+.chess-square-dark {
+  background-color: oklch(var(--board-dark));
+}
+
+.chess-square-selected {
+  background-color: oklch(var(--board-highlight) / 0.75) !important;
+}
+
+.chess-square-last-move {
+  background-color: oklch(0.78 0.12 88 / 0.6) !important;
+}
+
+.chess-square-check {
+  background-color: oklch(0.6 0.22 22 / 0.7) !important;
+}
+
+/* Header gradient */
+.header-gradient {
+  background: linear-gradient(
+    to right,
+    oklch(0.185 0.038 243),
+    oklch(0.15 0.03 243)
+  );
+}
+
+/* Card hover */
+.card-hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card-hover:hover {
+  box-shadow: 0 4px 16px oklch(0.185 0.038 243 / 0.12);
+  transform: translateY(-1px);
+}
